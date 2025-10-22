@@ -34,7 +34,7 @@
                     'eventing/control-image'
                 )
                     .then(() => renderToPng(domNode(), { adjustClonedNode: oncloned }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -51,7 +51,7 @@
                     'filterStyles/control-image'
                 )
                     .then(() => renderToPng(domNode(), { filterStyles: filterStyles }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -63,7 +63,7 @@
                     'small/control-image'
                 )
                     .then(renderToSvg)
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -75,7 +75,7 @@
                     'small/control-image'
                 )
                     .then(renderToPng)
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -86,7 +86,8 @@
                     'border/style.css',
                     'border/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -98,7 +99,7 @@
                     'small/control-image-jpeg'
                 )
                     .then(renderToJpeg)
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -110,7 +111,7 @@
                     'small/control-image-jpeg-low'
                 )
                     .then(() => renderToJpeg(null, { quality: 0.5 }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -125,7 +126,7 @@
                     .then(function (blob) {
                         return global.URL.createObjectURL(blob);
                     })
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -143,7 +144,8 @@
                             parent.append(child.cloneNode(true));
                         }
                     })
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -154,7 +156,8 @@
                     'hash/style.css',
                     'small/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -165,7 +168,8 @@
                     'svg-ns/style.css',
                     'svg-ns/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -176,7 +180,8 @@
                     'svg-rect/style.css',
                     'svg-rect/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -196,7 +201,7 @@
                     .then(function (image) {
                         return drawImgElement(image, domNode);
                     })
-                    .then(compareToControlImage)
+                    .then((image) => compareToControlImage(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -254,7 +259,7 @@
                     'filter/control-image'
                 )
                     .then(() => renderToPng(domNode(), { filter: filter }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -273,7 +278,7 @@
                     'filter/control-image'
                 )
                     .then(() => renderToPng(domNode(), { filter: filter }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -284,7 +289,8 @@
                     'sheet/style.css',
                     'sheet/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -296,7 +302,8 @@
                     'fonts/style.css',
                     'fonts/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -309,7 +316,7 @@
                     'fonts/control-image-no-font'
                 )
                     .then(() => renderToPng(domNode(), { disableEmbedFonts: true }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -332,7 +339,7 @@
                     'srcset/control-image'
                 )
                     .then(renderToPng)
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -343,7 +350,8 @@
                     'css-bg/style.css',
                     'css-bg/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -355,7 +363,8 @@
                     'iframe/style.css',
                     'iframe/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -421,7 +430,7 @@
                     'bgcolor/control-image'
                 )
                     .then(() => renderToPng(domNode(), { bgcolor: '#ffff00' }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -433,7 +442,7 @@
                     'bgcolor/control-image'
                 )
                     .then(() => renderToSvg(domNode(), { bgcolor: '#ffff00' }))
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -491,7 +500,7 @@
                     .then(function (dataUrl) {
                         return drawDataUrl(dataUrl, { width: 200, height: 200 });
                     })
-                    .then(compareToControlImage)
+                    .then((image) => compareToControlImage(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -510,7 +519,7 @@
                             },
                         })
                     )
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -522,7 +531,7 @@
                     'background-clip/control-image'
                 )
                     .then(renderToPng)
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -546,7 +555,7 @@
                     .then(function (dataUrl) {
                         return drawDataUrl(dataUrl, { width: 200, height: 200 });
                     })
-                    .then(compareToControlImage)
+                    .then((image) => compareToControlImage(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -558,7 +567,7 @@
                     'svg-styles/control-image'
                 )
                     .then(renderToSvg)
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -571,7 +580,7 @@
                     'defaultStyles/control-image'
                 )
                     .then(renderToSvg)
-                    .then(check)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -582,7 +591,8 @@
                     'padding/style.css',
                     'padding/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -594,7 +604,8 @@
                     'shadow-dom/styles.css',
                     'shadow-dom/control-image'
                 )
-                    .then(renderToPngAndCheck)
+                    .then(renderToPng)
+                    .then((image) => check(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
@@ -605,27 +616,32 @@
                     .then(function (dataUrl) {
                         return drawDataUrl(dataUrl, { width: 500, height: 100 });
                     })
-                    .then(compareToControlImage)
+                    .then((image) => compareToControlImage(image, this.test.title))
                     .then(done)
                     .catch(done);
             });
 
-            function compareToControlImage(image) {
+            function compareToControlImage(image, title) {
+                title = title || 'failure test';
                 const imageUrl = getImageDataURL(image, 'image/png');
                 const controlUrl = getImageDataURL(controlImage(), 'image/png');
 
                 if (imageUrl !== controlUrl) {
                     var escapedImage = escapeImage(image.src);
 
-                    console.debug(`
-                    <html>
+                    var errorHtml =
+                        `<html>
+                        <head>
+                            <meta charset="utf-8"/>
+                            <title>dom-to-image-more test failure - ${escapeHtml(title)}</title>
+                        </head>
                         <body>
                             <h2>Source</h2>\n<img src='${escapedImage}'/>
                             <h2>Output</h2>\n<img src='${imageUrl}'/>
                             <h2>Control</h2>\n<img src='${controlUrl}'/>
                         </body>
-                    </html>
-                    `);
+                    </html>`;
+                    console.log(errorHtml);
                 }
                 assert.equal(
                     imageUrl,
@@ -707,14 +723,10 @@
                 return canvas.toDataURL(mimetype);
             }
 
-            function renderToPngAndCheck() {
-                return Promise.resolve().then(renderToPng).then(check);
-            }
-
-            function check(dataUrl) {
+            function check(dataUrl, title) {
                 return Promise.resolve(dataUrl)
                     .then(drawDataUrl)
-                    .then(compareToControlImage);
+                    .then((image) => compareToControlImage(image, title));
             }
 
             function drawDataUrl(dataUrl, dimensions) {
@@ -802,11 +814,13 @@
                 const regexer = domtoimage.impl.inliner.impl.urlAsRegex;
 
                 one('http://foo.com', 'url("http://foo.com")', '"');
+                // eslint-disable-next-line quotes
                 one('http://foo.com', "url('http://foo.com')", "'");
                 one('http://foo.com', 'url(http://foo.com)', '');
                 one(
                     'http://foo.com',
                     'url("http://bar.org") and url(\'http://foo.com\')',
+                    // eslint-disable-next-line quotes
                     "'"
                 );
                 one('https://example.org', 'url(ping.png)', null);
@@ -1030,7 +1044,7 @@
                     domtoimage.impl.options.imagePlaceholder = validPlaceholder;
 
                     // Mock XMLHttpRequest to simulate status 0
-                    global.XMLHttpRequest = function() {
+                    global.XMLHttpRequest = function () {
                         const mockXHR = {
                             readyState: XMLHttpRequest.UNSENT,
                             status: 0,
@@ -1041,8 +1055,8 @@
                             responseType: '',
                             timeout: 0,
                             withCredentials: false,
-                            open: function() {},
-                            send: function() {
+                            open: function () { },
+                            send: function () {
                                 // Simulate the request completing with status 0
                                 setTimeout(() => {
                                     mockXHR.readyState = XMLHttpRequest.DONE;
@@ -1052,7 +1066,7 @@
                                     }
                                 }, 10);
                             },
-                            setRequestHeader: function() {}
+                            setRequestHeader: function () { }
                         };
                         return mockXHR;
                     };
@@ -1075,11 +1089,11 @@
                 try {
                     domtoimage.impl.copyOptions({}); // since we're bypassing the normal options flow
                     domtoimage.impl.options.imagePlaceholder = undefined;
-                    
+
                     // Mock XMLHttpRequest to simulate status 0
-                    global.XMLHttpRequest = function() {
+                    global.XMLHttpRequest = function () {
                         const mockXHR = {
-                            readyState:  XMLHttpRequest.UNSENT,
+                            readyState: XMLHttpRequest.UNSENT,
                             status: 0,
                             response: null,
                             onloadend: null,
@@ -1087,8 +1101,8 @@
                             responseType: '',
                             timeout: 0,
                             withCredentials: false,
-                            open: function() {},
-                            send: function() {
+                            open: function () { },
+                            send: function () {
                                 // Simulate the request completing with status 0
                                 setTimeout(() => {
                                     mockXHR.readyState = XMLHttpRequest.DONE;
@@ -1098,7 +1112,7 @@
                                     }
                                 }, 10);
                             },
-                            setRequestHeader: function() {}
+                            setRequestHeader: function () { }
                         };
                         return mockXHR;
                     };
@@ -1124,9 +1138,9 @@
                     domtoimage.impl.options.imagePlaceholder = validPlaceholder;
 
                     // Mock XMLHttpRequest to simulate status 0
-                    global.XMLHttpRequest = function() {
+                    global.XMLHttpRequest = function () {
                         const mockXHR = {
-                            readyState:  XMLHttpRequest.UNSENT,
+                            readyState: XMLHttpRequest.UNSENT,
                             status: 0,
                             response: null,
                             onloadend: null,
@@ -1134,8 +1148,8 @@
                             responseType: '',
                             timeout: 0,
                             withCredentials: false,
-                            open: function() {},
-                            send: function() {
+                            open: function () { },
+                            send: function () {
                                 // Simulate the request completing with status 0
                                 setTimeout(() => {
                                     mockXHR.readyState = XMLHttpRequest.DONE;
@@ -1146,7 +1160,7 @@
                                     }
                                 }, 10);
                             },
-                            setRequestHeader: function() {}
+                            setRequestHeader: function () { }
                         };
                         return mockXHR;
                     };

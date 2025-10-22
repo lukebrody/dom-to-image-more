@@ -56,14 +56,14 @@
 
     // support node and browsers
     const ELEMENT_NODE =
-        (typeof Node !== 'undefined' ? Node.ELEMENT_NODE : undefined) || 1;
+        ( Node === undefined ? undefined : Node.ELEMENT_NODE) || 1;
     const getComputedStyle =
-        (typeof global !== 'undefined' ? global.getComputedStyle : undefined) ||
-        (typeof window !== 'undefined' ? window.getComputedStyle : undefined) ||
+        ( global === undefined ? undefined : global.getComputedStyle) ||
+        ( window === undefined ? undefined : window.getComputedStyle) ||
         globalThis.getComputedStyle;
     const atob =
-        (typeof global !== 'undefined' ? global.atob : undefined) ||
-        (typeof window !== 'undefined' ? window.atob : undefined) ||
+        ( global === undefined ? undefined : global.atob) ||
+        ( window === undefined ? undefined : window.atob) ||
         globalThis.atob;
 
     /**
@@ -118,12 +118,10 @@
             if (node.nodeType === ELEMENT_NODE) return node;
 
             const originalChild = node;
-            const originalParent = node.parentNode;
             const wrappingSpan = document.createElement('span');
-            originalParent.replaceChild(wrappingSpan, originalChild);
+            originalChild.replaceWith(wrappingSpan);
             wrappingSpan.append(node);
             restorations.push({
-                parent: originalParent,
                 child: originalChild,
                 wrapper: wrappingSpan,
             });
@@ -134,7 +132,7 @@
             // put the original children back where the wrappers were inserted
             while (restorations.length > 0) {
                 const restoration = restorations.pop();
-                restoration.parent.replaceChild(restoration.child, restoration.wrapper);
+                restoration.wrapper.replaceWith(restoration.child);
             }
 
             return result;
@@ -260,50 +258,50 @@
 
     function copyOptions(options) {
         // Copy options to impl options for use in impl
-        if (typeof options.copyDefaultStyles === 'undefined') {
+        if (options.copyDefaultStyles === undefined) {
             domtoimage.impl.options.copyDefaultStyles = defaultOptions.copyDefaultStyles;
         } else {
             domtoimage.impl.options.copyDefaultStyles = options.copyDefaultStyles;
         }
 
-        if (typeof options.imagePlaceholder === 'undefined') {
+        if (options.imagePlaceholder === undefined) {
             domtoimage.impl.options.imagePlaceholder = defaultOptions.imagePlaceholder;
         } else {
             domtoimage.impl.options.imagePlaceholder = options.imagePlaceholder;
         }
 
-        if (typeof options.cacheBust === 'undefined') {
+        if (options.cacheBust === undefined) {
             domtoimage.impl.options.cacheBust = defaultOptions.cacheBust;
         } else {
             domtoimage.impl.options.cacheBust = options.cacheBust;
         }
 
-        if (typeof options.corsImg === 'undefined') {
+        if (options.corsImg === undefined) {
             domtoimage.impl.options.corsImg = defaultOptions.corsImg;
         } else {
             domtoimage.impl.options.corsImg = options.corsImg;
         }
 
-        if (typeof options.useCredentials === 'undefined') {
+        if (options.useCredentials === undefined) {
             domtoimage.impl.options.useCredentials = defaultOptions.useCredentials;
         } else {
             domtoimage.impl.options.useCredentials = options.useCredentials;
         }
 
-        if (typeof options.useCredentialsFilters === 'undefined') {
+        if (options.useCredentialsFilters === undefined) {
             domtoimage.impl.options.useCredentialsFilters =
                 defaultOptions.useCredentialsFilters;
         } else {
             domtoimage.impl.options.useCredentialsFilters = options.useCredentialsFilters;
         }
 
-        if (typeof options.httpTimeout === 'undefined') {
+        if (options.httpTimeout === undefined) {
             domtoimage.impl.options.httpTimeout = defaultOptions.httpTimeout;
         } else {
             domtoimage.impl.options.httpTimeout = options.httpTimeout;
         }
 
-        if (typeof options.styleCaching === 'undefined') {
+        if (options.styleCaching === undefined) {
             domtoimage.impl.options.styleCaching = defaultOptions.styleCaching;
         } else {
             domtoimage.impl.options.styleCaching = options.styleCaching;
@@ -1463,8 +1461,8 @@
         const docType = document.doctype;
         const docTypeDeclaration = docType
             ? `<!DOCTYPE ${escapeHTML(docType.name)} ${escapeHTML(
-                  docType.publicId
-              )} ${escapeHTML(docType.systemId)}`.trim() + '>'
+                docType.publicId
+            )} ${escapeHTML(docType.systemId)}`.trim() + '>'
             : '';
 
         // Create a hidden sandbox <iframe> element within we can create default HTML elements and query their
@@ -1472,6 +1470,7 @@
         // render at all with `display: none`, so we have to use `visibility: hidden` with `position: fixed`.
         sandbox = document.createElement('iframe');
         sandbox.id = 'domtoimage-sandbox-' + util.uid();
+        sandbox.style.top = '-9999px';
         sandbox.style.visibility = 'hidden';
         sandbox.style.position = 'fixed';
         document.body.appendChild(sandbox);
